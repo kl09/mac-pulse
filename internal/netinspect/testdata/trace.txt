@@ -1,0 +1,16 @@
+fl=000f000
+h=1.1.1.1
+ip=203.0.113.7
+ts=1790850000.000
+visit_scheme=https
+uag=Go-http-client/1.1
+colo=AAA
+sliver=none
+http=http/1.1
+loc=XX
+tls=TLSv1.3
+sni=off
+warp=off
+gateway=off
+rbi=off
+kex=X25519

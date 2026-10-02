@@ -1,0 +1,544 @@
+/* Themes: the setting `theme` lands in data-skin on <html> (applyTheme in app.js), the mode in
+   data-theme. aqua is app.css itself. Every other theme is opaque and gives
+     [data-skin="<id>"]                      shape: --font, --r-tile, --r-ctl, --r-bar, --border-w, --gap, --pad
+     [data-skin="<id>"][data-theme="<mode>"] colour: --bg, --tile, --line, the texts, the marks, the states
+   plus the few rules a token cannot say. The selectors carry no :root so that a swatch of the theme
+   picker, which has both attributes, is painted with the theme's own tokens. What a theme leaves
+   out comes from the block below. themes_test.go holds every text and mark to WCAG AA on its tile.
+   The palettes are "after" their sources: colours that failed AA on a tile were moved until they passed. */
+:root:not([data-skin="aqua"]) {
+  --backdrop: var(--bg);
+  --tile-shadow: 0 0 0 transparent;
+  --hover: color-mix(in srgb, var(--text) 7%, transparent);
+  --track: color-mix(in srgb, var(--text) 12%, transparent);
+  --seg: color-mix(in srgb, var(--text) 7%, transparent);
+  --seg-on: var(--tile);
+  --seg-shadow: 0 0 0 .5px var(--line), 0 1px 2px rgba(0, 0, 0, .12);
+  --field: color-mix(in srgb, var(--text) 4%, var(--bg));
+  --neutral: color-mix(in srgb, var(--text) 40%, transparent);
+  --blue-2: color-mix(in srgb, var(--blue) 60%, var(--text));
+  --purple-2: color-mix(in srgb, var(--purple) 55%, #fff);
+  --purple-3: color-mix(in srgb, var(--purple) 65%, #000);
+  --warn-bg: color-mix(in srgb, var(--warn) 16%, transparent);
+  --warn-line: color-mix(in srgb, var(--warn) 32%, transparent);
+  --crit-bg: color-mix(in srgb, var(--crit) 14%, transparent);
+  --crit-line: color-mix(in srgb, var(--crit) 35%, transparent);
+}
+/* On a dark tile a button and the chosen segment are raised, not sunk. */
+:root:not([data-skin="aqua"])[data-theme="dark"] { --seg-on: color-mix(in srgb, var(--text) 16%, var(--tile)); }
+/* On a light tile the track of a switch that is off must be dark enough to carry a light knob at 3:1. */
+:root:not([data-skin="aqua"])[data-theme="light"] { --off: color-mix(in srgb, var(--text) 60%, transparent); }
+
+/* The aqua swatch of the theme picker: the page may be in any theme, so the swatch restates aqua. */
+.swatch-p[data-skin="aqua"] { --r-tile: 13px; --r-bar: 3px; --border-w: 0px; }
+.swatch-p[data-skin="aqua"][data-theme="light"] { --bg: #ececec; --tile: #f7f7f7; --line: #dadada; --blue: #007aff; --purple: #a544d6; --green: #1f9d43; }
+.swatch-p[data-skin="aqua"][data-theme="dark"] { --bg: #282828; --tile: #363636; --line: #414141; --blue: #0a84ff; --purple: #bf5af2; --green: #30d158; }
+
+/* graphite: flat and monochrome. A tile is the background inside a 1 px frame, the primary
+   control is the text colour inverted, colour is left to the marks. Palette: Tailwind zinc. */
+[data-skin="graphite"] {
+  --r-tile: 8px;
+  --r-ctl: 6px;
+  --r-bar: 2px;
+  --border-w: 1px;
+}
+[data-skin="graphite"][data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #09090b;
+  --tile: #09090b;
+  --line: #27272a;
+  --text: #fafafa;
+  --text-2: #a1a1aa;
+  --text-3: #8f8f96;
+  --sys: #94a3b8;
+  --focus: #a1a1aa;
+  --primary: #fafafa;
+  --on-primary: #18181b;
+  --blue: #60a5fa;
+  --purple: #c084fc;
+  --green: #34d399;
+  --indigo: #818cf8;
+  --teal: #22d3ee;
+  --ok: #4ade80;
+  --warn: #fbbf24;
+  --crit: #f87171;
+  --crit-text: #f87171;
+}
+[data-skin="graphite"][data-theme="light"] {
+  color-scheme: light;
+  --bg: #fff;
+  --tile: #fff;
+  --line: #e4e4e7;
+  --text: #18181b;
+  --text-2: #52525b;
+  --text-3: #6c6c75;
+  --sys: #5a697f;
+  --focus: #52525b;
+  --primary: #18181b;
+  --on-primary: #fafafa;
+  --blue: #2563eb;
+  --purple: #9333ea;
+  --green: #059669;
+  --indigo: #4f46e5;
+  --teal: #0891b2;
+  --ok: #16a34a;
+  --warn: #d97706;
+  --crit: #dc2626;
+  --crit-text: #d32424;
+}
+:root[data-skin="graphite"] input.switch:checked { background-color: var(--primary); }
+:root[data-skin="graphite"] input.switch:checked::after { background: var(--on-primary); }
+
+/* nord: cold and quiet. Filled tiles with no frame and more air; the marks stay inside the frost
+   blues, the aurora colours are kept for state. Palette: nordtheme/nord. */
+[data-skin="nord"] {
+  --r-tile: 10px;
+  --r-ctl: 6px;
+  --r-bar: 3px;
+  --border-w: 0px;
+  --gap: 10px;
+  --pad: 13px;
+}
+[data-skin="nord"][data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #2e3440;
+  --tile: #3b4252;
+  --line: #4c566a;
+  --text: #eceff4;
+  --text-2: #d8dee9;
+  --text-3: #bac2d0;
+  --sys: #afc4d9;
+  --focus: #88c0d0;
+  --primary: #88c0d0;
+  --on-primary: #2e3440;
+  --knob: var(--bg);
+  --blue: #81a1c1;
+  --purple: #88c0d0;
+  --green: #8fbcbb;
+  --indigo: #a9bcd6;
+  --teal: #8fbcbb;
+  --ok: #a3be8c;
+  --warn: #ebcb8b;
+  --crit: #c7767d;
+  --crit-text: #e0b4b8;
+}
+[data-skin="nord"][data-theme="light"] {
+  color-scheme: light;
+  --bg: #e5e9f0;
+  --tile: #eceff4;
+  --line: #d8dee9;
+  --text: #2e3440;
+  --text-2: #434c5e;
+  --text-3: #4c566a;
+  --sys: #4a6688;
+  --focus: #5e81ac;
+  --primary: #506e92;
+  --on-primary: #eceff4;
+  --blue: #5e81ac;
+  --purple: #3f7f93;
+  --green: #4f8583;
+  --indigo: #44618a;
+  --teal: #4f8583;
+  --ok: #6c8559;
+  --warn: #a8663f;
+  --crit: #bf616a;
+  --crit-text: #994e55;
+}
+
+/* catppuccin: soft pastel. The roundest theme: big tile corners and pill controls; a checkbox
+   stays a rounded square, since a circle reads as a radio button. Palette: catppuccin/palette, Mocha and Latte. */
+[data-skin="catppuccin"] {
+  --r-tile: 18px;
+  --r-ctl: 999px;
+  --r-bar: 4px;
+  --border-w: 0px;
+}
+[data-skin="catppuccin"][data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #1e1e2e;
+  --tile: #313244;
+  --line: #45475a;
+  --text: #cdd6f4;
+  --text-2: #bac2de;
+  --text-3: #a6adc8;
+  --sys: #a6abc1;
+  --focus: #b4befe;
+  --primary: #cba6f7;
+  --on-primary: #1e1e2e;
+  --knob: var(--bg);
+  --blue: #89b4fa;
+  --purple: #cba6f7;
+  --green: #a6e3a1;
+  --indigo: #f5c2e7;
+  --teal: #94e2d5;
+  --ok: #a6e3a1;
+  --warn: #fab387;
+  --crit: #f38ba8;
+  --crit-text: #f38ba8;
+}
+[data-skin="catppuccin"][data-theme="light"] {
+  color-scheme: light;
+  --bg: #e6e9ef;
+  --tile: #eff1f5;
+  --line: #ccd0da;
+  --text: #4c4f69;
+  --text-2: #565970;
+  --text-3: #63667a;
+  --sys: #636676;
+  --focus: #697ce9;
+  --primary: #8839ef;
+  --on-primary: #eff1f5;
+  --blue: #1e66f5;
+  --purple: #8839ef;
+  --green: #3f9e2b;
+  --indigo: #d9439f;
+  --teal: #179299;
+  --ok: #3f9e2b;
+  --warn: #c07a19;
+  --crit: #d20f39;
+  --crit-text: #cc0f37;
+}
+:root[data-skin="catppuccin"] input.check { border-radius: 6px; }
+/* Only the sides: a row keeps the vertical padding it has (Recent alerts), and the folded rows their indent, 4 px deeper like the rest. */
+:root[data-skin="catppuccin"] .row { margin-inline: -10px; padding-inline: 10px; }
+:root[data-skin="catppuccin"] .table .row { margin-inline: 0; }
+:root[data-skin="catppuccin"] .row.more { padding-left: 58px; }
+:root[data-skin="catppuccin"] .row.more.kid { padding-left: 84px; }
+:root[data-skin="catppuccin"] .zone-list .row { margin-inline: 0; }
+
+/* solarized: low contrast paper and ink. Nearly square, tighter tiles, and instead of a frame
+   each tile stands on a 2 px rule. Palette: altercation/solarized. */
+[data-skin="solarized"] {
+  --r-tile: 4px;
+  --r-ctl: 3px;
+  --r-bar: 1px;
+  --border-w: 0px;
+  --pad: 10px;
+}
+[data-skin="solarized"][data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #002b36;
+  --tile: #073642;
+  --line: #1d4b56;
+  --text: #eee8d5;
+  --text-2: #b3bdbd;
+  --text-3: #b3bdbd;
+  --sys: #9fabad;
+  --focus: #268bd2;
+  --primary: #2076b2;
+  --on-primary: #fdf6e3;
+  --blue: #268bd2;
+  --purple: #6d72c5;
+  --green: #859900;
+  --indigo: #d53e87;
+  --teal: #2aa198;
+  --ok: #859900;
+  --warn: #b58900;
+  --crit: #de3e3b;
+  --crit-text: #ec8d8b;
+}
+[data-skin="solarized"][data-theme="light"] {
+  color-scheme: light;
+  --bg: #eee8d5;
+  --tile: #fdf6e3;
+  --line: #e0d9c3;
+  --text: #073642;
+  --text-2: #4a6068;
+  --text-3: #4a6068;
+  --sys: #566a71;
+  --focus: #268bd2;
+  --primary: #2076b2;
+  --on-primary: #fdf6e3;
+  --blue: #268bd2;
+  --purple: #6c71c4;
+  --green: #849700;
+  --indigo: #d33682;
+  --teal: #299e95;
+  --ok: #849700;
+  --warn: #b38800;
+  --crit: #dc322f;
+  --crit-text: #c62d2a;
+}
+:root[data-skin="solarized"] .tile { border-bottom: 2px solid color-mix(in srgb, var(--text-3) 55%, var(--tile)); box-shadow: none; }
+
+/* gruvbox: warm retro. Square tiles with a 3 px stripe in the colour of the metric on the left,
+   rectangular controls, an ochre primary. Palette: morhetz/gruvbox. */
+[data-skin="gruvbox"] {
+  --r-tile: 3px;
+  --r-ctl: 2px;
+  --r-bar: 0px;
+  --border-w: 0px;
+  --pad: 10px;
+}
+[data-skin="gruvbox"][data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #282828;
+  --tile: #3c3836;
+  --line: #504945;
+  --text: #ebdbb2;
+  --text-2: #d5c4a1;
+  --text-3: #beaf94;
+  --sys: #bbaf9f;
+  --focus: #fabd2f;
+  --primary: #d79921;
+  --on-primary: #282828;
+  --knob: var(--bg);
+  --blue: #83a598;
+  --purple: #d3869b;
+  --green: #b8bb26;
+  --indigo: #fe8019;
+  --teal: #8ec07c;
+  --ok: #b8bb26;
+  --warn: #fabd2f;
+  --crit: #fb4934;
+  --crit-text: #fd9487;
+}
+[data-skin="gruvbox"][data-theme="light"] {
+  color-scheme: light;
+  --bg: #ebdbb2;
+  --tile: #fbf1c7;
+  --line: #d5c4a1;
+  --text: #3c3836;
+  --text-2: #504945;
+  --text-3: #665c54;
+  --sys: #6d6157;
+  --focus: #ac7013;
+  --primary: #966211;
+  --on-primary: #fbf1c7;
+  --blue: #076678;
+  --purple: #8f3f71;
+  --green: #79740e;
+  --indigo: #af3a03;
+  --teal: #427b58;
+  --ok: #79740e;
+  --warn: #b57614;
+  --crit: #9d0006;
+  --crit-text: #9d0006;
+}
+:root[data-skin="gruvbox"] .tile { border-left: 3px solid var(--accent, var(--line)); box-shadow: none; }
+
+/* terminal: btop on a phosphor screen. Dark only, monospace, square, dense, every tile in a
+   1 px green frame, labels in lower case. Palette: yeun/open-color. */
+[data-skin="terminal"] {
+  --font: Menlo, Monaco, monospace;
+  --r-tile: 0px;
+  --r-ctl: 0px;
+  --r-bar: 0px;
+  --border-w: 1px;
+  --gap: 4px;
+  --pad: 8px;
+}
+[data-skin="terminal"][data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #000;
+  --tile: #0c0f0c;
+  --line: #2b6a35;
+  --text: #b2f2bb;
+  --text-2: #69db7c;
+  --text-3: #37b24d;
+  --sys: #868e96;
+  --focus: #69db7c;
+  --primary: #69db7c;
+  --on-primary: #000;
+  --knob: #000;
+  --blue: #69db7c;
+  --purple: #da77f2;
+  --green: #3bc9db;
+  --indigo: #74c0fc;
+  --teal: #a9e34b;
+  --ok: #69db7c;
+  --warn: #ff922b;
+  --crit: #ff6b6b;
+  --crit-text: #ff6b6b;
+}
+/* Menlo is a fifth wider than the system font: the text steps down a size to keep the columns. */
+:root[data-skin="terminal"] body { font-size: 11.5px; letter-spacing: -.3px; }
+/* Labels only: a value keeps its case, or its units would read "gb" and "°c". */
+:root[data-skin="terminal"] :is(.tile-h > span:first-of-type, .card-h > span:first-child, .group-h, .th, .btn, #tabs button, .tab > .seg button, .back) { text-transform: lowercase; }
+:root[data-skin="terminal"] :is(.big .num, .rate .num, .lead, .ring-l) { font-weight: 400; letter-spacing: -1px; }
+:root[data-skin="terminal"] .tile { box-shadow: none; }
+:root[data-skin="terminal"] :is(.btn:not(.link), .seg) { box-shadow: inset 0 0 0 1px var(--line); }
+:root[data-skin="terminal"] .btn.primary { box-shadow: none; }
+:root[data-skin="terminal"] input.switch::after { box-shadow: none; }
+
+/* paper: a printed report. Light only; numbers and headings in a serif, no tile fill, sections
+   under a rule in ink, outline controls. Colours are the theme's own, checked for AA. */
+[data-skin="paper"] {
+  --r-tile: 2px;
+  --r-ctl: 4px;
+  --r-bar: 1px;
+  --border-w: 0px;
+  --gap: 12px;
+  --pad: 14px;
+}
+[data-skin="paper"][data-theme="light"] {
+  color-scheme: light;
+  --bg: #f6f1e7;
+  --tile: #f6f1e7;
+  --line: #d9d0bf;
+  --text: #1f1b16;
+  --text-2: #544c40;
+  --text-3: #6b6254;
+  --sys: #4f5d73;
+  --focus: #1d4e89;
+  --primary: #1f1b16;
+  --on-primary: #f6f1e7;
+  --knob: #f6f1e7;
+  --blue: #1d4e89;
+  --purple: #7b3f8c;
+  --green: #2f6f4f;
+  --indigo: #4a4a8a;
+  --teal: #0f6b78;
+  --ok: #2f6f4f;
+  --warn: #8a5a00;
+  --crit: #a3221b;
+  --crit-text: #a3221b;
+  --seg-shadow: inset 0 0 0 1px var(--text-3);
+}
+:root[data-skin="paper"] :is(.num, .lead, .ring-l, .tile-h, .card-h, .group-h, .title, #title, .about b) { font-family: Charter, "Iowan Old Style", Georgia, serif; }
+:root[data-skin="paper"] :is(.tile-h, .card-h, .group-h, .top-apps .head .title) { font-size: 12.5px; color: var(--text); }
+:root[data-skin="paper"] .tile { padding-left: 2px; padding-right: 2px; border-top: 1px solid var(--text); border-radius: 0; box-shadow: none; }
+:root[data-skin="paper"] .tile.go:hover { background: var(--hover); }
+:root[data-skin="paper"] .btn:not(.primary):not(.link):not(.danger) { background-color: transparent; }
+:root[data-skin="paper"] .btn:not(.primary):not(.link):not(.danger):hover { background-color: var(--hover); }
+
+/* contrast: for a display in the sun or tired eyes. Black on white or white on black, text at
+   7:1 or better, 2 px frames, heavier type, saturated marks. Colours are the theme's own. */
+[data-skin="contrast"] {
+  --r-tile: 6px;
+  --r-ctl: 6px;
+  --r-bar: 0px;
+  --border-w: 2px;
+}
+[data-skin="contrast"][data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #000;
+  --tile: #000;
+  --line: #fff;
+  --text: #fff;
+  --text-2: #e6e6e6;
+  --text-3: #cfcfcf;
+  --sys: #9fd0ff;
+  --focus: #ffd60a;
+  --primary: #ffd60a;
+  --on-primary: #000;
+  --knob: var(--bg);
+  --blue: #4cc2ff;
+  --purple: #e08cff;
+  --green: #5cff8a;
+  --indigo: #b9a6ff;
+  --teal: #4cf0e0;
+  --ok: #5cff8a;
+  --warn: #ffb84c;
+  --crit: #ff6b6b;
+  --crit-text: #ff9c9c;
+  --seg-shadow: inset 0 0 0 2px var(--text);
+  --track: #474747;
+}
+[data-skin="contrast"][data-theme="light"] {
+  color-scheme: light;
+  --bg: #fff;
+  --tile: #fff;
+  --line: #000;
+  --text: #000;
+  --text-2: #1a1a1a;
+  --text-3: #333;
+  --sys: #1f3a5f;
+  --focus: #0047b3;
+  --primary: #000;
+  --on-primary: #fff;
+  --blue: #0047b3;
+  --purple: #6a00a8;
+  --green: #00631f;
+  --indigo: #3b2fb0;
+  --teal: #005f6b;
+  --ok: #00631f;
+  --warn: #8a3d00;
+  --crit: #c8001f;
+  --crit-text: #a1001c;
+  --seg-shadow: inset 0 0 0 2px var(--text);
+  --track: #b8b8b8;
+}
+:root[data-skin="contrast"] body { font-weight: 500; }
+:root[data-skin="contrast"] :is(.num, .tile-h, .card-h, .group-h, .btn, .seg button[aria-selected="true"]) { font-weight: 700; }
+:root[data-skin="contrast"] b { font-weight: 600; }
+:root[data-skin="contrast"] .t-bat .cap b { font-weight: 500; }
+:root[data-skin="contrast"] .tile { box-shadow: none; }
+:root[data-skin="contrast"] .btn:not(.primary):not(.link):not(.danger) { background-color: transparent; }
+:root[data-skin="contrast"] .btn:not(.primary):not(.link):not(.danger):hover { background-color: var(--track); }
+:root[data-skin="contrast"] .btn.danger { box-shadow: inset 0 0 0 2px var(--crit); }
+:root[data-skin="contrast"] :is(input.check:not(:checked), input.switch) { box-shadow: inset 0 0 0 2px var(--text); }
+:root[data-skin="contrast"] input.switch:not(:checked) { background-color: transparent; }
+:root[data-skin="contrast"] input.switch:not(:checked)::after { background: var(--text); box-shadow: none; }
+html.keys:root[data-skin="contrast"] :focus-visible { box-shadow: 0 0 0 2px var(--bg), 0 0 0 5px var(--focus); }
+
+/* vivid: every tile in the colour of its metric — a tinted fill and a frame of the same hue —
+   with a magenta primary. The tints are 22 % (dark) and 14 % (light) of the mark in the page colour. */
+[data-skin="vivid"] {
+  --r-tile: 14px;
+  --r-ctl: 8px;
+  --r-bar: 3px;
+  --border-w: 1.5px;
+}
+[data-skin="vivid"][data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #14121c;
+  --tile: #221f30;
+  --line: #3a3550;
+  --text: #f4f2fa;
+  --text-2: #d3cfe0;
+  --text-3: #c5c0d6;
+  --sys: #b9cdf0;
+  --focus: #ff7ab4;
+  --primary: #ff5fa2;
+  --on-primary: #1c0a14;
+  --knob: var(--bg);
+  --blue: #4d9fff;
+  --purple: #c77dff;
+  --green: #3ddc97;
+  --indigo: #8f8cff;
+  --teal: #22d3ee;
+  --bat: #a3e635;
+  --ok: #3ddc97;
+  --warn: #ffa94d;
+  --crit: #ff6b81;
+  --crit-text: #ffb3b3;
+}
+[data-skin="vivid"][data-theme="dark"] :is(.t-cpu, .d-cpu .tile, .d-sensors .tile) { --tile: #21314e; }
+[data-skin="vivid"][data-theme="dark"] :is(.t-mem, .d-memory .tile) { --tile: #3b2a4e; }
+[data-skin="vivid"][data-theme="dark"] :is(.t-net, .d-network .tile) { --tile: #1d3e37; }
+[data-skin="vivid"][data-theme="dark"] :is(.t-disk, .d-disk .tile) { --tile: #2f2d4e; }
+[data-skin="vivid"][data-theme="dark"] :is(.t-gpu, .d-gpu .tile) { --tile: #173c4a; }
+[data-skin="vivid"][data-theme="dark"] :is(.t-bat, .d-battery .tile) { --tile: #334122; }
+[data-skin="vivid"][data-theme="light"] {
+  color-scheme: light;
+  --bg: #faf8ff;
+  --tile: #f0ecfa;
+  --line: #d6cfe8;
+  --text: #1c1830;
+  --text-2: #443e5e;
+  --text-3: #514b6a;
+  --sys: #3d4a70;
+  --focus: #c21d6e;
+  --primary: #c21d6e;
+  --on-primary: #fff;
+  --blue: #1a5fcc;
+  --purple: #8427d6;
+  --green: #0b7a4c;
+  --indigo: #4b46c8;
+  --teal: #06748f;
+  --bat: #3f6a0b;
+  --ok: #0b7a4c;
+  --warn: #a85400;
+  --crit: #d1173f;
+  --crit-text: #a3122f;
+}
+[data-skin="vivid"][data-theme="light"] :is(.t-cpu, .d-cpu .tile, .d-sensors .tile) { --tile: #dbe3f8; }
+[data-skin="vivid"][data-theme="light"] :is(.t-mem, .d-memory .tile) { --tile: #e9dbf9; }
+[data-skin="vivid"][data-theme="light"] :is(.t-net, .d-network .tile) { --tile: #d9e6e6; }
+[data-skin="vivid"][data-theme="light"] :is(.t-disk, .d-disk .tile) { --tile: #e2dff7; }
+[data-skin="vivid"][data-theme="light"] :is(.t-gpu, .d-gpu .tile) { --tile: #d8e6ef; }
+[data-skin="vivid"][data-theme="light"] :is(.t-bat, .d-battery .tile) { --tile: #e0e4dd; }
+:root[data-skin="vivid"] .tile { border-color: color-mix(in srgb, var(--accent, var(--line)) 55%, var(--bg)); box-shadow: none; }
+:root[data-skin="vivid"] .strip { border-color: var(--line); }
+.swatch-p[data-skin="vivid"] i { border-color: var(--blue); background: color-mix(in srgb, var(--blue) 20%, var(--bg)); }

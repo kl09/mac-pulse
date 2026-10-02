@@ -1,0 +1,15 @@
+Executable=/Applications/Google Chrome.app/Contents/MacOS/Google Chrome
+Identifier=com.google.Chrome
+Format=app bundle with Mach-O universal (x86_64 arm64)
+CodeDirectory v=20500 size=765 flags=0x12a00(kill,restrict,library-validation,runtime) hashes=13+7 location=embedded
+Signature size=8990
+Authority=Developer ID Application: Google LLC (EQHXZ8M8AV)
+Authority=Developer ID Certification Authority
+Authority=Apple Root CA
+Timestamp=29 Sep 2026 at 04:03:41
+Notarization Ticket=stapled
+Info.plist entries=44
+TeamIdentifier=EQHXZ8M8AV
+Runtime Version=26.5.0
+Sealed Resources version=2 rules=13 files=63
+Internal requirements count=1 size=288

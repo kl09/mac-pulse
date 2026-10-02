@@ -1,0 +1,8 @@
+    1     0     0 ??        86:46.87  17920 /sbin/launchd
+  312     1     0 ??        85:51.98  38912 /usr/libexec/logd
+  382     1    88 ??       1461:58.18  98128 /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer
+ 4711   712   501 ??         0:03.25 214112 /Applications/Google Chrome.app/Contents/MacOS/Google Chrome
+ 4712  4711   501 ??       1-02:03:04  99999 /Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/140.0.0.0/Helpers/Google Chrome Helper (GPU).app/Contents/MacOS/Google Chrome Helper (GPU)
+ 8000     1   501 ??        12:34:56   1024 /usr/local/bin/two colons
+ 9000  8000   501 ttys003       1.50    512 /usr/bin/yes
+garbage line

@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Question or idea to discuss
+    url: https://github.com/kl09/mac-pulse/discussions
+    about: Ask how something works or discuss an idea before opening an issue.
+  - name: Security problem
+    url: https://github.com/kl09/mac-pulse/security/advisories/new
+    about: Report a vulnerability privately. Please do not open a public issue.

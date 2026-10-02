@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>mac-pulse</title>
+<link rel="stylesheet" href="app.css">
+<link rel="stylesheet" href="themes.css">
+</head>
+<body>
+<div class="titlebar" aria-hidden="true">mac-pulse</div>
+<div class="grip" data-drag aria-hidden="true"></div>
+<header class="top">
+  <button class="back" id="back" hidden></button>
+  <h1 id="title" hidden></h1>
+  <nav class="seg" id="tabs" role="tablist">
+    <button role="tab" data-tab="overview"></button>
+    <button role="tab" data-tab="processes"></button>
+    <button role="tab" data-tab="network"></button>
+    <button role="tab" data-tab="history"></button>
+    <button role="tab" data-tab="dev"></button>
+    <button role="tab" data-tab="storage"></button>
+  </nav>
+  <button class="icon-btn" id="pin" aria-pressed="false"></button>
+  <button class="icon-btn" id="open-window"></button>
+  <button class="icon-btn" id="open-settings" aria-pressed="false"></button>
+</header>
+<main id="view"></main>
+<div id="toast" role="status" hidden></div>
+<script src="i18n/en.js"></script>
+<script src="i18n/ru.js"></script>
+<script src="i18n/es.js"></script>
+<script src="i18n/de.js"></script>
+<script src="i18n/fr.js"></script>
+<script src="i18n/it.js"></script>
+<script src="i18n/pt-BR.js"></script>
+<script src="i18n/zh-Hans.js"></script>
+<script src="i18n/zh-Hant.js"></script>
+<script src="i18n/ja.js"></script>
+<script src="i18n/ko.js"></script>
+<script src="i18n/uk.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

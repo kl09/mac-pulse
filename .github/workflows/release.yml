@@ -1,0 +1,107 @@
+name: Release
+
+# Pushing a tag vX.Y.Z builds the app, packs a .dmg and a .zip and publishes a GitHub Release.
+# Without the optional secrets below the app is signed ad hoc and not notarized.
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: macos-latest # Apple Silicon: the artefacts are arm64
+    timeout-minutes: 45
+    env:
+      # OPTIONAL: Developer ID signing and notarization. Leave the secrets unset to skip both.
+      # docs/RELEASING.md explains how to create each of them.
+      DEVELOPER_ID: ${{ secrets.DEVELOPER_ID }} # "Developer ID Application: Name (TEAMID)"
+      CERTIFICATE_P12_BASE64: ${{ secrets.CERTIFICATE_P12_BASE64 }}
+      CERTIFICATE_PASSWORD: ${{ secrets.CERTIFICATE_PASSWORD }}
+      NOTARY_APPLE_ID: ${{ secrets.NOTARY_APPLE_ID }}
+      NOTARY_TEAM_ID: ${{ secrets.NOTARY_TEAM_ID }}
+      NOTARY_PASSWORD: ${{ secrets.NOTARY_PASSWORD }} # an app-specific password
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Check that the tag matches Info.plist
+        run: |
+          version=$(plutil -extract CFBundleShortVersionString raw packaging/Info.plist)
+          if [ "v$version" != "$GITHUB_REF_NAME" ]; then
+            echo "::error::tag $GITHUB_REF_NAME, but packaging/Info.plist says $version"
+            exit 1
+          fi
+          echo "VERSION=$version" >> "$GITHUB_ENV"
+
+      # OPTIONAL: runs only when the certificate secrets are set.
+      - name: Import the Developer ID certificate
+        if: env.DEVELOPER_ID != '' && env.CERTIFICATE_P12_BASE64 != ''
+        run: |
+          keychain="$RUNNER_TEMP/release.keychain-db"
+          keychain_password=$(uuidgen)
+          echo "$CERTIFICATE_P12_BASE64" | base64 --decode > "$RUNNER_TEMP/certificate.p12"
+          security create-keychain -p "$keychain_password" "$keychain"
+          security set-keychain-settings -lut 3600 "$keychain"
+          security unlock-keychain -p "$keychain_password" "$keychain"
+          security import "$RUNNER_TEMP/certificate.p12" -P "$CERTIFICATE_PASSWORD" -A -t cert -f pkcs12 -k "$keychain"
+          security set-key-partition-list -S apple-tool:,apple: -k "$keychain_password" "$keychain"
+          security list-keychains -d user -s "$keychain" login.keychain-db
+          rm "$RUNNER_TEMP/certificate.p12"
+          echo "SIGN_ARGS=DEVELOPER_ID=$DEVELOPER_ID" >> "$GITHUB_ENV"
+
+      # OPTIONAL: runs only when the certificate was imported and the notary secrets are set.
+      - name: Store the notary credentials
+        if: env.SIGN_ARGS != '' && env.NOTARY_APPLE_ID != '' && env.NOTARY_PASSWORD != ''
+        run: |
+          xcrun notarytool store-credentials mac-pulse-notary \
+            --apple-id "$NOTARY_APPLE_ID" --team-id "$NOTARY_TEAM_ID" --password "$NOTARY_PASSWORD" \
+            --keychain "$RUNNER_TEMP/release.keychain-db"
+          echo "NOTARY_ARGS=NOTARY_PROFILE=mac-pulse-notary" >> "$GITHUB_ENV"
+
+      # clean, test, bundle, dmg, notarize (a no-op without a profile), zip, checksums.
+      - name: Build the release
+        run: make release TESTFLAGS=-short ${SIGN_ARGS:+"$SIGN_ARGS"} ${NOTARY_ARGS:+"$NOTARY_ARGS"}
+
+      - name: Verify
+        run: |
+          codesign --verify --deep --strict --verbose=2 dist/mac-pulse.app
+          codesign -dv dist/mac-pulse.app
+          if [ -n "$NOTARY_ARGS" ]; then spctl --assess --type execute --verbose dist/mac-pulse.app; fi
+
+      - name: Release notes from CHANGELOG.md
+        run: |
+          awk -v v="$VERSION" '$0 ~ "^## \\[" v "\\]" {on=1; next} /^## \[/ {on=0} /^\[[^]]+\]: / {on=0} on' CHANGELOG.md > "$RUNNER_TEMP/notes.md"
+          if [ -z "$NOTARY_ARGS" ]; then
+            cat >> "$RUNNER_TEMP/notes.md" <<'EOF'
+
+          ### Opening the app
+
+          This build is not notarized by Apple, so macOS refuses to open it the first time.
+          See [Install](https://github.com/kl09/mac-pulse#install) for the three ways to allow it.
+          EOF
+          fi
+          {
+            echo
+            echo "### SHA-256"
+            echo
+            echo '```'
+            cat dist/SHA256SUMS.txt
+            echo '```'
+          } >> "$RUNNER_TEMP/notes.md"
+          cat "$RUNNER_TEMP/notes.md"
+
+      - name: Publish the GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" dist/mac-pulse-*.dmg dist/mac-pulse-*.zip dist/SHA256SUMS.txt \
+            --title "mac-pulse $VERSION" --notes-file "$RUNNER_TEMP/notes.md" --verify-tag
+
+      - name: Delete the temporary keychain
+        if: always()
+        run: security delete-keychain "$RUNNER_TEMP/release.keychain-db" 2>/dev/null || true

@@ -1,0 +1,13 @@
+Executable=/Applications/Pages.app/Contents/MacOS/Pages
+Identifier=com.apple.iWork.Pages
+Format=app bundle with Mach-O universal (x86_64 arm64)
+CodeDirectory v=20500 size=172065 flags=0x12000(library-validation,runtime) hashes=5366+7 location=embedded
+Signature size=4797
+Authority=Apple Mac OS Application Signing
+Authority=Apple Worldwide Developer Relations Certification Authority
+Authority=Apple Root CA
+Info.plist entries=48
+TeamIdentifier=74J34U3R6X
+Runtime Version=15.2.0
+Sealed Resources version=2 rules=13 files=34302
+Internal requirements count=1 size=224

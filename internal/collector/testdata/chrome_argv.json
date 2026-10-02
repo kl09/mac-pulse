@@ -1,0 +1,82 @@
+[
+ [
+  "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+ ],
+ [
+  "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.92/Helpers/chrome_crashpad_handler",
+  "--monitor-self-annotation=ptype=crashpad-handler",
+  "--database=/Users/alex/Library/Application Support/Google/Chrome/Crashpad",
+  "--url=https://clients2.google.com/cr/report",
+  "--annotation=channel=",
+  "--annotation=plat=OS X",
+  "--annotation=prod=Chrome_Mac",
+  "--annotation=ver=154.0.8037.92",
+  "--handshake-fd=5"
+ ],
+ [
+  "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.92/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper",
+  "--type=gpu-process",
+  "--gpu-recent-crash-count=0",
+  "--gpu-preferences=WAAAAAAAAAAgAQAEAAAAAAAAAAAAAGAAQAAAAAAAAAADAAAAAAAAADgAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAKAAAAAAAAAAoAAAAAAAAAAgAAAAAAAAADAAAAAEAAAAAAAAAAAAAAAgAAAAAAAAACAAAAAAAAAA=",
+  "--shared-files",
+  "--metrics-shmem-handle=1752395122,r,14449023549847085005,14507630337914414590,262144",
+  "--field-trial-handle=1718379636,r,242880714128631569,8781627467242015219,262144",
+  "--variations-seed-version=20260929-170043.057000-production",
+  "--pseudonymization-salt-handle=1935764596,r,3206388642197868634,6941145288053032268,4",
+  "--trace-process-track-uuid=3190708988185955192",
+  "--seatbelt-client=29"
+ ],
+ [
+  "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.92/Helpers/Google Chrome Helper.app/Contents/MacOS/Google Chrome Helper",
+  "--type=utility",
+  "--utility-sub-type=network.mojom.NetworkService",
+  "--lang=en-US",
+  "--service-sandbox-type=network",
+  "--shared-files",
+  "--metrics-shmem-handle=1752395122,r,16795322278728979258,6952016246374270294,524288",
+  "--field-trial-handle=1718379636,r,242880714128631569,8781627467242015219,262144",
+  "--variations-seed-version=20260929-170043.057000-production",
+  "--pseudonymization-salt-handle=1935764596,r,3206388642197868634,6941145288053032268,4",
+  "--trace-process-track-uuid=3190708989122997041",
+  "--seatbelt-client=29"
+ ],
+ [
+  "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.92/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)",
+  "--type=renderer",
+  "--origin-trial-disabled-features=CanvasTextNg|WebAssemblyCustomDescriptors",
+  "--lang=en-US",
+  "--num-raster-threads=4",
+  "--enable-zero-copy",
+  "--enable-gpu-memory-buffer-compositor-resources",
+  "--enable-main-frame-before-activation",
+  "--renderer-client-id=322",
+  "--launch-time-ticks=704247961252",
+  "--shared-files",
+  "--metrics-shmem-handle=1752395122,r,18224972042495539086,13412134179790666159,1572864",
+  "--field-trial-handle=1718379636,r,242880714128631569,8781627467242015219,262144",
+  "--variations-seed-version=20260929-170043.057000-production",
+  "--pseudonymization-salt-handle=1935764596,r,3206388642197868634,6941145288053032268,4",
+  "--trace-process-track-uuid=3190709288039346872",
+  "--seatbelt-client=180"
+ ],
+ [
+  "/Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/154.0.8037.92/Helpers/Google Chrome Helper (Renderer).app/Contents/MacOS/Google Chrome Helper (Renderer)",
+  "--type=renderer",
+  "--extension-process",
+  "--origin-trial-disabled-features=CanvasTextNg|WebAssemblyCustomDescriptors",
+  "--lang=en-US",
+  "--num-raster-threads=4",
+  "--enable-zero-copy",
+  "--enable-gpu-memory-buffer-compositor-resources",
+  "--enable-main-frame-before-activation",
+  "--renderer-client-id=11",
+  "--launch-time-ticks=680258738118",
+  "--shared-files",
+  "--metrics-shmem-handle=1752395122,r,11011212852474504107,1908416569767077000,1572864",
+  "--field-trial-handle=1718379636,r,242880714128631569,8781627467242015219,262144",
+  "--variations-seed-version=20260929-170043.057000-production",
+  "--pseudonymization-salt-handle=1935764596,r,3206388642197868634,6941145288053032268,4",
+  "--trace-process-track-uuid=3190708996619331833",
+  "--seatbelt-client=100"
+ ]
+]

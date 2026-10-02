@@ -1,0 +1,9 @@
+hwloc-ps(1)              - List currently-running processes or threads that are bound
+ippevepcl(7), ippevepcl/ps(7) - pcl and postscript print commands for ippeveprinter
+ps(1)                    - process status
+DateTime::Locale::ar_PS(3pm) - Locale data examples for the Arabic Palestinian Territories (ar-PS) locale
+DateTime::Locale::ps(3pm) - Locale data examples for the Pashto (ps) locale
+DateTime::Locale::ps_AF(3pm) - Locale data examples for the Pashto Afghanistan (ps-AF) locale
+DateTime::Locale::ps_PK(3pm) - Locale data examples for the Pashto Pakistan (ps-PK) locale
+ippevepcl(7), ippevepcl/ps(7) - pcl and postscript print commands for ippeveprinter
+ps(1)                    - process status

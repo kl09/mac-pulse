@@ -1,0 +1,1 @@
+{"BlockIO":"1.9MB / 456MB","CPUPerc":"0.90%","Container":"a1b2c3d4e5f6","ID":"a1b2c3d4e5f6","MemPerc":"0.77%","MemUsage":"60.03MiB / 7.653GiB","Name":"shop-postgres-1","NetIO":"95.6MB / 385MB","PIDs":"7"}

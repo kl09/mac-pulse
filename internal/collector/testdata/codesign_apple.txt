@@ -1,0 +1,14 @@
+Executable=/usr/libexec/trustd
+Identifier=com.apple.trustd
+Format=Mach-O universal (x86_64 arm64e)
+CodeDirectory v=20400 size=5737 flags=0x0(none) hashes=169+7 location=embedded
+Platform identifier=16
+Signature size=4442
+Authority=Software Signing
+Authority=Apple Code Signing Certification Authority
+Authority=Apple Root CA
+Signed Time=15 Jul 2025 at 09:21:23
+Info.plist entries=23
+TeamIdentifier=not set
+Sealed Resources=none
+Internal requirements count=1 size=64

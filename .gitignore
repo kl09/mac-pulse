@@ -1,0 +1,16 @@
+# Build output
+bin/
+dist/
+/mac-pulse
+
+# macOS
+.DS_Store
+
+# Editors
+.idea/
+.vscode/
+*.swp
+
+# Tools
+.gograph/
+

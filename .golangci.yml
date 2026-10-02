@@ -1,0 +1,11 @@
+version: "2"
+linters:
+  enable: [bodyclose, copyloopvar, gocritic, gocyclo, goprintffuncname, misspell, nakedret, perfsprint, prealloc, promlinter, revive, sloglint, testifylint, unconvert, whitespace, lll, funlen]
+  settings:
+    lll: {line-length: 140}
+    funlen: {lines: 100, statements: 50}
+    gocyclo: {min-complexity: 15}
+    revive:
+      rules:
+        - name: exported
+          disabled: true

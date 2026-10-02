@@ -1,0 +1,4 @@
+# GitHub language statistics: count the code, not the data.
+# The dictionaries are translation tables and the mock files are fixtures for browser work.
+internal/ui/web/i18n/*.js linguist-detectable=false
+internal/ui/web/mock*.js linguist-detectable=false

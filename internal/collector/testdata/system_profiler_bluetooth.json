@@ -1,0 +1,66 @@
+{
+  "SPBluetoothDataType" : [
+    {
+      "controller_properties" : {
+        "controller_address" : "00:00:5e:00:53:00",
+        "controller_chipset" : "BCM_4388C2",
+        "controller_discoverable" : "attrib_off",
+        "controller_firmwareVersion" : "22.5.190.756",
+        "controller_productID" : "0x4A3B",
+        "controller_state" : "attrib_on",
+        "controller_supportedServices" : "0x392039 < HFP AVRCP A2DP HID Braille LEA AACP GATT SerialPort >",
+        "controller_transport" : "PCIe",
+        "controller_vendorID" : "0x004C (Apple)"
+      },
+      "device_connected" : [
+        {
+          "Alex’s AirPods" : {
+            "device_address" : "00:00:5e:00:53:01",
+            "device_batteryLevelCase" : "64 %",
+            "device_batteryLevelLeft" : "99 %",
+            "device_batteryLevelRight" : "95 %",
+            "device_caseVersion" : "65.5.0",
+            "device_firmwareVersion" : "6F21",
+            "device_minorType" : "Headphones",
+            "device_productID" : "0x2013",
+            "device_rssi" : "-48",
+            "device_vendorID" : "0x004C"
+          }
+        },
+        {
+          "Keyboard K380" : {
+            "device_address" : "00:00:5e:00:53:02",
+            "device_batteryLevelMain" : "70 %",
+            "device_firmwareVersion" : "66.0.1",
+            "device_minorType" : "Keyboard",
+            "device_productID" : "0xB342",
+            "device_vendorID" : "0x046D"
+          }
+        },
+        {
+          "MAJOR IV" : {
+            "device_address" : "00:00:5e:00:53:03",
+            "device_firmwareVersion" : "1.0.0",
+            "device_minorType" : "Headset",
+            "device_productID" : "0x300A",
+            "device_vendorID" : "0x03E0"
+          }
+        }
+      ],
+      "device_not_connected" : [
+        {
+          "AD-XXXXXXXXXX" : {
+            "device_address" : "00:00:5e:00:53:04",
+            "device_rssi" : "-62"
+          }
+        },
+        {
+          "iPhone" : {
+            "device_address" : "00:00:5e:00:53:05",
+            "device_batteryLevelMain" : "50 %"
+          }
+        }
+      ]
+    }
+  ]
+}

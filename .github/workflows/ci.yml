@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: macos-latest # Apple Silicon
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      # Built with the Go version of go.mod: a prebuilt golangci-lint refuses a module newer than its own Go.
+      - name: Install linters
+        run: |
+          go install mvdan.cc/gofumpt@v0.12.0
+          go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.6.1
+
+      - name: Vet
+        run: go vet ./...
+
+      # gofumpt, golangci-lint and the C / Objective-C warnings as errors.
+      - name: Lint
+        run: make lint
+
+      # The tests that read hardware (SMC, IOReport, GPU, Wi-Fi) skip themselves where it does not answer,
+      # as on a virtual runner. -short also skips the one test that creates a keychain.
+      - name: Test
+        run: make test TESTFLAGS=-short
+
+      - name: Build
+        run: make build
+
+      - name: Bundle
+        run: |
+          make bundle
+          codesign --verify --deep --strict --verbose=2 dist/mac-pulse.app

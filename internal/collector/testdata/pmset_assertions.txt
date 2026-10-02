@@ -1,0 +1,20 @@
+2026-09-30 16:42:41 +0000 
+Assertion status system-wide:
+   BackgroundTask                 0
+   ApplePushServiceTask           0
+   UserIsActive                   1
+   PreventUserIdleDisplaySleep    0
+   PreventSystemSleep             0
+   ExternalMedia                  0
+   PreventUserIdleSystemSleep     1
+   NetworkClientActive            0
+Listed by owning process:
+   pid 50160(caffeinate): [0x00096fc3000192c8] 00:03:24 PreventUserIdleSystemSleep named: "caffeinate command-line tool"  
+	Details: caffeinate asserting for 300 secs
+	Localized=THE CAFFEINATE TOOL IS PREVENTING SLEEP.
+	Timeout will fire in 96 secs Action=TimeoutActionRelease
+   pid 325(powerd): [0x00090ff60001969c] 06:52:08 PreventUserIdleSystemSleep named: "Powerd - Prevent sleep while display is on"  
+   pid 382(WindowServer): [0x00090ff60009969b] 00:00:53 UserIsActive named: "com.apple.iohideventsystem.queue.tickle.nxevent service:IOHIDSystem pid:49904 process:System Events"  
+	Timeout will fire in 10746 secs Action=TimeoutActionRelease
+Kernel Assertions: 0x100=MAGICWAKE
+   id=555  level=255 0x100=MAGICWAKE creat=14/09/2026, 10:08  mod=30/09/2026, 16:32 description=en0 owner=IOSkywalkNetworkBSDClient

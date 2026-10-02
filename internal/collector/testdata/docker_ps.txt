@@ -1,0 +1,1 @@
+{"id":"a1b2c3d4e5f6","name":"shop-postgres-1","image":"postgres:17-alpine","state":"running","status":"Up 7 days (healthy)","ports":"0.0.0.0:5432->5432/tcp","project":"shop","dir":"/Users/alex/src/shop"}

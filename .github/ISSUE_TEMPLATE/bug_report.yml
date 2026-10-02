@@ -1,0 +1,64 @@
+name: Bug report
+description: Something is wrong, missing or shows an implausible number.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please search the existing issues first. Screenshots help; check that they show nothing private.
+  - type: input
+    id: version
+    attributes:
+      label: mac-pulse version
+      description: Settings → General, at the bottom. Say "built from source at <commit>" if you built it.
+      placeholder: 1.0.0
+    validations:
+      required: true
+  - type: input
+    id: macos
+    attributes:
+      label: macOS version
+      description: Apple menu → About This Mac, or `sw_vers -productVersion`.
+      placeholder: "15.6"
+    validations:
+      required: true
+  - type: input
+    id: mac
+    attributes:
+      label: Mac model and chip
+      description: Apple menu → About This Mac.
+      placeholder: MacBook Pro 14-inch (2024), Apple M4 Pro
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open the panel
+        2. Go to the Network tab
+        3. …
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: What happened instead
+      description: For a wrong number, add what Activity Monitor or another tool shows for the same thing.
+    validations:
+      required: true
+  - type: textarea
+    id: state
+    attributes:
+      label: State and logs (optional)
+      description: |
+        For a wrong or missing reading, the relevant part of
+        `/Applications/mac-pulse.app/Contents/MacOS/mac-pulse -json` helps a lot.
+        The output contains app names, paths and host names: remove what you do not want to share.
+      render: json
